@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aisha's Birthday Wishlist 💜</title>
+  <meta name="description" content="A simple, elegant birthday wishlist and message board for Aisha.">
+  
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body class="clean-theme">
+
+  <!-- Header Navigation Bar -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="javascript:void(0)" class="nav-logo" onclick="goToPage(0)">
+        Aisha's Wishlist
+      </a>
+      <div class="nav-steps">
+        <button class="step-btn active" onclick="goToPage(0)">Welcome</button>
+        <button class="step-btn" onclick="goToPage(1)">Group Funds</button>
+        <button class="step-btn" onclick="goToPage(2)">Fashion & Shoes</button>
+        <button class="step-btn" onclick="goToPage(3)">Tech & Skincare</button>
+        <button class="step-btn" onclick="goToPage(4)">Wish Wall</button>
+      </div>
+      <div class="nav-actions">
+        <button id="admin-mode-btn" class="btn btn-outline-sm">
+          <span id="admin-btn-text">Admin</span>
+        </button>
+        <button id="share-btn" class="btn btn-primary-sm">
+          Share Site
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- STORYBOOK PAGES CONTAINER -->
+  <main class="storybook-viewport">
+    
+    <!-- PAGE 0: WELCOME -->
+    <section class="story-page active" id="page-0">
+      <div class="container hero-inner">
+        <div class="badge-tag">Welcome to Aisha's Celebration</div>
+        <h1 class="hero-title">Aisha's Birthday Wishlist</h1>
+        <p class="hero-subtitle">
+          Welcome! We're celebrating Aisha's birthday. Here is a list of things she would love. Feel free to pick a gift to reserve or contribute towards her dream wishes!
+        </p>
+
+        <!-- Countdown Widget -->
+        <div class="hero-countdown-card">
+          <div class="countdown-header">Countdown to Aisha's Birthday</div>
+          <div class="countdown-timer" id="countdown-timer">
+            <div class="time-box"><span id="days">00</span><label>Days</label></div>
+            <div class="time-colon">:</div>
+            <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
+            <div class="time-colon">:</div>
+            <div class="time-box"><span id="minutes">00</span><label>Mins</label></div>
+            <div class="time-colon">:</div>
+            <div class="time-box"><span id="seconds">00</span><label>Secs</label></div>
+          </div>
+        </div>
+
+        <div class="quick-stats-row">
+          <div class="stat-card">
+            <span class="stat-number" id="stat-total">0</span>
+            <span class="stat-desc">Total Wishes</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="stat-available">0</span>
+            <span class="stat-desc">Available</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="stat-reserved">0</span>
+            <span class="stat-desc">Reserved / Funded</span>
+          </div>
+        </div>
+
+        <div class="cover-action-wrap">
+          <button class="btn btn-primary btn-lg" onclick="goToPage(1)">
+            Explore Wishlist ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 1: CHAPTER I - GROUP FUNDS -->
+    <section class="story-page" id="page-1">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="chapter-badge">GROUP FUNDS</span>
+          <h2 class="section-title">Dream Experiences</h2>
+          <p class="section-subtitle">Big wishes where anyone can contribute any amount in Naira (₦)</p>
+        </div>
+
+        <div id="dream-funding-container" class="grid-funding">
+          <!-- Rendered dynamically in JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: CHAPTER II - FASHION & SHOES -->
+    <section class="story-page" id="page-2">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="chapter-badge">STYLE & CLOSET</span>
+          <h2 class="section-title">Fashion & Shoes</h2>
+          <p class="section-subtitle">Sneakers, silk scarves & modest luxury fashion open for gifting</p>
+        </div>
+
+        <div class="filter-bar-journey">
+          <button class="j-tab active" data-filter="all">All Items</button>
+          <button class="j-tab" data-filter="available">Available Gifts</button>
+          <button class="j-tab" data-filter="claimed">Claimed Gifts</button>
+        </div>
+
+        <div id="style-grid" class="grid-cards">
+          <!-- Rendered dynamically in JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: CHAPTER III - TECH & SKINCARE -->
+    <section class="story-page" id="page-3">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="chapter-badge">TECH & BEAUTY</span>
+          <h2 class="section-title">Tech & Skincare Essentials</h2>
+          <p class="section-subtitle">Gadgets, accessories, and skincare favorites</p>
+        </div>
+
+        <div id="essentials-grid" class="grid-cards">
+          <!-- Rendered dynamically in JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4: CHAPTER IV - WISH WALL & GUESTBOOK -->
+    <section class="story-page" id="page-4">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="chapter-badge">GUESTBOOK</span>
+          <h2 class="section-title">Birthday Wish Wall 💌</h2>
+          <p class="section-subtitle">Leave a sweet birthday message or prayer for Aisha</p>
+        </div>
+
+        <div class="wishwall-wrap">
+          <div class="wish-form-card">
+            <h3>Leave Aisha a Message</h3>
+            <form id="guestbook-form">
+              <div class="form-group">
+                <label for="gb-name">Your Name <span class="required">*</span></label>
+                <input type="text" id="gb-name" required placeholder="e.g. Amina">
+              </div>
+              <div class="form-group">
+                <label for="gb-message">Birthday Message <span class="required">*</span></label>
+                <textarea id="gb-message" rows="3" required placeholder="Wishing Aisha a wonderful birthday filled with joy! 💜"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Post Message</button>
+            </form>
+          </div>
+
+          <div id="wishwall-grid" class="wishwall-cards">
+            <!-- Rendered in JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PAGINATION BOTTOM CONTROLLER -->
+  <div class="pagination-bar">
+    <div class="pagination-container">
+      <button id="prev-page-btn" class="pg-btn" onclick="prevPage()">
+        ← Prev Chapter
+      </button>
+      
+      <div class="pg-indicator">
+        <span id="current-page-num">Welcome</span> <small>of 5</small>
+      </div>
+
+      <button id="next-page-btn" class="pg-btn pg-next" onclick="nextPage()">
+        Next Chapter ➔
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="simple-footer">
+    <div class="container text-center">
+      <p class="footer-copy">Crafted with 💜 for Aisha's Birthday</p>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+  <div id="claim-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close" id="claim-close-btn">&times;</button>
+      <div class="modal-header">
+        <h2 id="claim-item-title">Gift Item to Aisha 🎁</h2>
+        <p class="modal-subtitle">Reserve this item so Aisha doesn't receive duplicates!</p>
+      </div>
+      <form id="claim-form">
+        <input type="hidden" id="claim-item-id">
+        <div class="form-group">
+          <label for="claimer-name">Your Name <span class="required">*</span></label>
+          <input type="text" id="claimer-name" required placeholder="e.g. Fatima H.">
+        </div>
+        <div class="form-group">
+          <label for="claim-status">Status</label>
+          <select id="claim-status" required>
+            <option value="reserved">⏳ Planning to buy / Reserve</option>
+            <option value="purchased">✅ Already Purchased / Gifted</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="claimer-note">Note / Message (Optional)</label>
+          <textarea id="claimer-note" rows="3" placeholder="Write a note for Aisha..."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="claim-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Confirm Gift 💖</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="fund-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close" id="fund-close-btn">&times;</button>
+      <div class="modal-header">
+        <h2 id="fund-item-title">Contribute to Aisha’s Wish 💸</h2>
+        <p class="modal-subtitle">Send any amount in Naira (₦) to help Aisha achieve this dream!</p>
+      </div>
+      <form id="fund-form">
+        <input type="hidden" id="fund-item-id">
+        <div class="form-group">
+          <label for="funder-name">Your Name <span class="required">*</span></label>
+          <input type="text" id="funder-name" required placeholder="e.g. Ibrahim M.">
+        </div>
+        <div class="form-group">
+          <label for="fund-amount">Contribution Amount (₦) <span class="required">*</span></label>
+          <input type="number" id="fund-amount" required step="1000" min="1000" placeholder="e.g. 50000">
+        </div>
+        <div class="form-group">
+          <label for="funder-note">Note / Prayer (Optional)</label>
+          <textarea id="funder-note" rows="3" placeholder="May Allah accept your Umrah trip!"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="fund-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Send Contribution 💜</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="pin-modal" class="modal-overlay hidden">
+    <div class="modal-card modal-sm">
+      <button class="modal-close" id="pin-close-btn">&times;</button>
+      <div class="modal-header text-center">
+        <h2>Enter Admin PIN</h2>
+        <p class="modal-subtitle">Enter passcode to manage items (PIN: <strong>1234</strong>)</p>
+      </div>
+      <form id="pin-form">
+        <div class="form-group">
+          <input type="password" id="pin-input" required placeholder="PIN (1234)" autofocus style="text-align: center; letter-spacing: 6px; font-size: 1.3rem;">
+          <p id="pin-error" class="error-msg hidden">Incorrect PIN. Try 1234!</p>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Unlock Admin</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
